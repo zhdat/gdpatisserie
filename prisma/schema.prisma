@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  // On revient à la méthode éprouvée qui marche à tous les coups
+  url      = env("DATABASE_URL")
+}
+
+// MODÈLES (Tables)
+
+// Le modèle pour les gateaux, chocolats...
+model Product {
+  id          String  @id @default(cuid()) // id unique
+  name        String
+  description String? // ? => optionnel
+  price       Float
+  imageUrl    String?
+
+  // Gestion de la disponibilité
+  isAvailable Boolean @default(true)
+  isArchived  Boolean @default(false)
+
+  // Relation : Un produit appartient à une catégorie
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+
+  // Relation inverse : Un produit peut être présent dans plusieurs commandes
+  orderItems OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Les catégories (Ex: Gateaux, Chocolats, Special Paques ...)
+model Category {
+  id       String    @id @default(cuid())
+  name     String    @unique // impossible d'avoir deux catégories avec le même nom
+  slug     String    @unique // pour l'url (ex: gateau-creme)
+  products Product[] // Une catégorie contient plusieurs produits
+}
+
+// La commande
+model Order {
+  idString String @id @default(cuid())
+
+  // Infos du client
+  customerName  String
+  customerEmail String
+  customerPhone String
+
+  // adresse de livraison
+  address String
+  city    String
+  zipCode String
+
+  // Infos commande
+  totalAmount Float
+  status      OrderStatus @default(PENDING)
+
+  deliveryDate DateTime @default(now())
+  deliveryTime String   @default("Non spécifié")
+
+  // Le contenu de la commande
+  items OrderItem[]
+
+  createdAt DateTime @default(now())
+}
+
+// Table de liaison : Qu'est-ce qu'il y'a dans une commande ?
+// Ex: Commande #1 contient 2x Tarte au citron
+model OrderItem {
+  id String @id @default(cuid())
+
+  quantity Int
+  price    Float // On stocke le prix au moment de la commande
+
+  order   Order  @relation(fields: [orderId], references: [idString])
+  orderId String
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+}
+
+// ENUMS
+enum OrderStatus {
+  PENDING // Commande passée, en attente de validation
+  CONFIRMED // Commande validée (après appel)
+  PREPARED // La commande est prête
+  DELIVERED // Livré et payé
+  CANCELLED // Annulé
+}
