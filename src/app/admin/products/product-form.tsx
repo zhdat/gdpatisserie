@@ -19,7 +19,7 @@ interface ProductFormProps {
   action: (formData: FormData) => Promise<void> // Signature de la server action
 }
 
-export default function ProductForm({categories, initialData, action}: ProductFormProps) {
+export default function ProductForm({categories, initialData, action}: Readonly<ProductFormProps>) {
   const [imageUrl, setImageUrl] = useState(initialData?.imageUrl || "")
 
   return (

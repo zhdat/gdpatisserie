@@ -17,7 +17,7 @@ export default function ImageUpload({
                                       onChange,
                                       onRemove,
                                       value,
-                                    }: ImageUploadProps) {
+                                    }: Readonly<ImageUploadProps>) {
 
   // Fonction appelée quand l'upload est fini
   const onUpload = (result: any) => {

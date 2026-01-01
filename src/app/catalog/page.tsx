@@ -20,7 +20,7 @@ interface CatalogPageProps {
   searchParams: Promise<{ category?: string; q?: string }>
 }
 
-export default async function CatalogPage({searchParams}: CatalogPageProps) {
+export default async function CatalogPage({searchParams}: Readonly<CatalogPageProps>) {
   // 1. On attend les paramètres
   const { category, q } = await searchParams // On récupère q
 
@@ -70,7 +70,7 @@ export default async function CatalogPage({searchParams}: CatalogPageProps) {
         <div className="flex flex-wrap gap-2 mb-8">
           <Link href="/catalog">
             <Badge
-              variant={!category ? "default" : "outline"}
+              variant={category ? "outline" : "default"}
               className={cn("cursor-pointer text-sm py-2 px-4 hover:bg-amber-100", !category && "bg-amber-600 hover:bg-amber-700")}
             >
               Tout voir

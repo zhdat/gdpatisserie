@@ -19,7 +19,7 @@ type OrderWithItems = Order & {
   })[]
 }
 
-export default function OrderDetails({order}: { order: OrderWithItems }) {
+export default function OrderDetails({order}: Readonly<{ order: OrderWithItems }>) {
   return (
     <Dialog>
       {/* Le bouton déclencheur */}
@@ -76,7 +76,7 @@ export default function OrderDetails({order}: { order: OrderWithItems }) {
           </div>
 
           <div className="flex justify-end">
-            <Button onClick={() => window.print()}>Imprimer le bon</Button>
+            <Button onClick={() => globalThis.print()}>Imprimer le bon</Button>
           </div>
         </div>
       </DialogContent>

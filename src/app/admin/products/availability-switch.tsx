@@ -9,7 +9,10 @@ interface AvailabilitySwitchProps {
   initialValue: boolean
 }
 
-export default function AvailabilitySwitch({productId, initialValue}: AvailabilitySwitchProps) {
+export default function AvailabilitySwitch({
+                                             productId,
+                                             initialValue
+                                           }: Readonly<AvailabilitySwitchProps>) {
   const [isPending, startTransition] = useTransition()
   const [isAvailable, setIsAvailable] = useState(initialValue)
 

@@ -1,5 +1,6 @@
 import Link from "next/link"
-import {Facebook, Instagram, Mail, MapPin, Phone} from "lucide-react"
+import {Mail, MapPin, Phone} from "lucide-react"
+import {FaFacebookF, FaInstagram} from "react-icons/fa";
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -19,10 +20,10 @@ export function Footer() {
           <div className="flex gap-4 pt-2">
             {/* Liens réseaux sociaux factices */}
             <Link href="#" className="hover:text-amber-500 transition-colors">
-              <Instagram className="h-5 w-5"/>
+              <FaInstagram className="h-5 w-5"/>
             </Link>
             <Link href="#" className="hover:text-amber-500 transition-colors">
-              <Facebook className="h-5 w-5"/>
+              <FaFacebookF className="h-5 w-5"/>
             </Link>
           </div>
         </div>

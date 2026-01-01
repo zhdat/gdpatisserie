@@ -14,7 +14,7 @@ import {
 interface OrderEmailProps {
   orderId: string;
   customerName: string;
-  items: { name: string; quantity: number; price: number }[];
+  items: { id: string; name: string; quantity: number; price: number }[];
   totalAmount: number;
   deliveryDate: Date;
   deliveryTime: string;
@@ -64,8 +64,8 @@ export const OrderEmail: React.FC<OrderEmailProps> = ({
           <Section>
             <Text style={paragraph}><strong>Détail :</strong></Text>
             <ul style={{paddingLeft: '20px'}}>
-              {items.map((item, index) => (
-                <li key={index} style={{marginBottom: '8px', color: '#444'}}>
+              {items.map((item) => (
+                <li key={item.id} style={{marginBottom: '8px', color: '#444'}}>
                   {item.quantity}x <strong>{item.name}</strong> - {(item.price * item.quantity).toFixed(2)} €
                 </li>
               ))}

@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {updateOrderStatus} from "@/app/admin/orders/action";
 import OrderDetails from "@/app/admin/orders/order-details";
+import {toast} from "sonner";
 
 // On définit le type de données qu'on va afficher
 export type OrderColumn = Order & { items: (OrderItem & { product: Product })[] }
@@ -22,8 +23,11 @@ export const columns: ColumnDef<OrderColumn>[] = [
   {
     accessorKey: "idString",
     header: "ID",
-    cell: ({row}) => <span
-      className="font-mono text-xs">#{(row.getValue("idString") as string).toString().slice(-4).toUpperCase()}</span>,
+    cell: ({row}) => {
+      const id: string = row.getValue("idString");
+      return <span
+        className="font-mono text-xs">#{id?.slice(-4).toUpperCase()}</span>
+    },
   },
   {
     accessorKey: "deliveryDate",
@@ -61,8 +65,12 @@ export const columns: ColumnDef<OrderColumn>[] = [
     accessorKey: "totalAmount",
     header: "Total",
     cell: ({row}) => {
-      const amount = parseFloat(row.getValue("totalAmount"))
-      return <div className="font-bold">{amount.toFixed(2)} €</div>
+      const amount = Number.parseFloat(row.getValue("totalAmount"))
+      const formatted = new Intl.NumberFormat('fr-FR', {
+        style: 'currency',
+        currency: 'EUR'
+      }).format(amount)
+      return <div className="font-bold">{formatted} €</div>
     },
   },
   {
@@ -79,8 +87,7 @@ export const columns: ColumnDef<OrderColumn>[] = [
       )
     },
     cell: ({row}) => {
-      let status = row.getValue("status") as string
-      // Copie de ton code de badge précédent
+      let status: string = row.getValue("status")
       let color = "bg-slate-100 text-slate-800"
       if (status === 'PENDING') {
         status = 'EN ATTENTE'
@@ -108,15 +115,25 @@ export const columns: ColumnDef<OrderColumn>[] = [
   {
     id: "details",
     header: "Détail",
-    cell: ({ row }) => {
+    cell: ({row}) => {
       // On passe la ligne entière à notre composant
-      return <OrderDetails order={row.original} />
+      return <OrderDetails order={row.original}/>
     },
   },
   {
     id: "actions",
     cell: ({row}) => {
       const order = row.original
+
+      const handleUpdate = async (newStatus: string) => {
+        const promise = updateOrderStatus(order.idString, newStatus);
+
+        toast.promise(promise, {
+          loading: 'Mise à jour...',
+          success: 'Statut mis à jour !',
+          error: 'Erreur lors de la mise à jour.',
+        });
+      }
 
       return (
         <DropdownMenu>
@@ -128,17 +145,17 @@ export const columns: ColumnDef<OrderColumn>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => updateOrderStatus(order.idString, "CONFIRMED")}>
+            <DropdownMenuItem onClick={() => handleUpdate("CONFIRMED")}>
               Marquer Confirmé (Appelé)
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => updateOrderStatus(order.idString, "PREPARED")}>
+            <DropdownMenuItem onClick={() => handleUpdate("PREPARED")}>
               Marquer Prêt
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => updateOrderStatus(order.idString, "DELIVERED")}>
+            <DropdownMenuItem onClick={() => handleUpdate("DELIVERED")}>
               Marquer Livré ✅
             </DropdownMenuItem>
             <DropdownMenuItem className="text-red-600"
-                              onClick={() => updateOrderStatus(order.idString, "CANCELLED")}>
+                              onClick={() => handleUpdate("CANCELLED")}>
               Annuler la commande
             </DropdownMenuItem>
           </DropdownMenuContent>

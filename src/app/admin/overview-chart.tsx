@@ -9,7 +9,7 @@ interface OverviewChartProps {
   }[]
 }
 
-export function OverviewChart({data}: OverviewChartProps) {
+export function OverviewChart({data}: Readonly<OverviewChartProps>) {
   return (
     <ResponsiveContainer width="100%" height={350}>
       <BarChart data={data}>

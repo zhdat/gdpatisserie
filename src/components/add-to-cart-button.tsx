@@ -1,15 +1,15 @@
 'use client' // 👈 OBLIGATOIRE : Transforme ce bout de code en code Client (Navigateur)
 
-import { Button } from "@/components/ui/button"
-import { useCartStore } from "@/store/cart"
-import { Product } from "@prisma/client"
-import { useState } from "react"
+import {Button} from "@/components/ui/button"
+import {useCartStore} from "@/store/cart"
+import {Product} from "@prisma/client"
+import {useState} from "react"
 
 interface AddToCartButtonProps {
   product: Product
 }
 
-export default function AddToCartButton({ product }: AddToCartButtonProps) {
+export default function AddToCartButton({product}: Readonly<AddToCartButtonProps>) {
   // On récupère la fonction addItem depuis notre store
   const addItem = useCartStore((state) => state.addItem)
 

@@ -13,12 +13,10 @@ export async function authenticate(prevState: string | undefined, formData: Form
 
   } catch (error) {
     if (error instanceof AuthError) {
-      switch (error.type) {
-        case 'CredentialsSignin':
-          return 'Identifiants invalides.'
-        default:
-          return 'Une erreur est survenue.'
+      if (error.type === "CredentialsSignin") {
+        return 'Identifiants invalides.'
       }
+      return 'Une erreur est survenue.'
     }
     // IMPORTANT : Il faut laisser passer l'erreur de redirection de Next.js
     // Si tu l'enlèves, la redirection ne se fera pas.

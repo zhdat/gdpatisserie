@@ -8,7 +8,7 @@ export async function createProduct(formData: FormData) {
   // 1. Récupérer les données du formulaire
   const name = formData.get('name') as string
   const description = formData.get('description') as string
-  const price = parseFloat(formData.get('price') as string)
+  const price = Number.parseFloat(formData.get('price') as string)
   const categoryId = formData.get('categoryId') as string
   const imageUrl = formData.get('imageUrl') as string
 
@@ -37,7 +37,7 @@ export async function createProduct(formData: FormData) {
 export async function updateProduct(id: string, formData: FormData) {
   const name = formData.get('name') as string
   const description = formData.get('description') as string
-  const price = parseFloat(formData.get('price') as string)
+  const price = Number.parseFloat(formData.get('price') as string)
   const categoryId = formData.get('categoryId') as string
   const imageUrl = formData.get('imageUrl') as string
 
