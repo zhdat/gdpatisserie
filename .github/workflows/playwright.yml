@@ -42,7 +42,7 @@ jobs:
         # On force l'URL de connexion vers le service créé au-dessus
         env:
           DATABASE_URL: postgres://gduser:securepass@localhost:5432/gdpatisserie_test
-        run: npx prisma@§ db push
+        run: npx prisma@6 db push
 
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
