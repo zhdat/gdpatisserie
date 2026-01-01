@@ -64,7 +64,7 @@ async function main() {
         description: "Disponible uniquement pour les fêtes de fin d'année.",
         price: 35.0,
         imageUrl:
-          "https://unsplash.com/fr/photos/une-part-de-gateau-sur-une-assiette-aux-framboises-kLWFICqOuPs",
+          "https://images.unsplash.com/photo-1723029343473-88fa0dfd6e5e?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         categoryId: catEvenements.id,
         isAvailable: false,
       },
