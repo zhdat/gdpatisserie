@@ -1,27 +1,33 @@
-import {Button} from "@/components/ui/button";
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
-import {prisma} from "@/lib/db";
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { prisma } from "@/lib/db";
 import Link from "next/link";
-import {deleteProduct} from "@/app/admin/products/action";
+import { deleteProduct } from "@/app/admin/products/action";
 import AvailabilitySwitch from "@/app/admin/products/availability-switch";
 
-export const dynamic = 'force-dynamic'
-
+export const dynamic = "force-dynamic";
 
 // Composant ASYNC => il attend la réponse de la bdd avant d'envoyer le html
 export default async function AdminProductsPage() {
   // 1. Récupération des données (Server-Side)
   const products = await prisma.product.findMany({
     orderBy: [
-      {createdAt: "desc"}, // Les plus récents en premier
-      {id: "asc"}
+      { createdAt: "desc" }, // Les plus récents en premier
+      { id: "asc" },
     ],
     include: {
-      category: true // On veut aussi récupérer le nom de la catégorie associée
+      category: true, // On veut aussi récupérer le nom de la catégorie associée
     },
     where: {
-      isArchived: false
-    }
+      isArchived: false,
+    },
   });
 
   return (
@@ -50,9 +56,9 @@ export default async function AdminProductsPage() {
                 <TableCell>{product.category.name}</TableCell>
                 <TableCell>
                   {/* Formatage du prix en Euros */}
-                  {new Intl.NumberFormat('fr-FR', {
-                    style: 'currency',
-                    currency: 'EUR'
+                  {new Intl.NumberFormat("fr-FR", {
+                    style: "currency",
+                    currency: "EUR",
                   }).format(product.price)}
                 </TableCell>
                 <TableCell>
@@ -91,5 +97,5 @@ export default async function AdminProductsPage() {
         </Table>
       </div>
     </div>
-  )
+  );
 }

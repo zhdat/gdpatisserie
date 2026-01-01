@@ -1,5 +1,5 @@
-import NextAuth from "next-auth"
-import Credentials from "next-auth/providers/credentials"
+import NextAuth from "next-auth";
+import Credentials from "next-auth/providers/credentials";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -13,20 +13,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // C'est ici qu'on définit "qui a le droit d'entrer"
         // Pour l'instant, on hardcode le mot de passe (suffisant pour un MVP mono-utilisateur)
 
-        const email = "admin@gdpatisserie.com"
-        const password = "admin" // ⚠️ Change ce mot de passe pour la prod !
+        const email = "admin@gdpatisserie.com";
+        const password = "admin"; // ⚠️ Change ce mot de passe pour la prod !
 
         if (credentials.email === email && credentials.password === password) {
           // Si c'est bon, on retourne l'utilisateur
-          return { id: "1", name: "Chef Pâtissier", email: email }
+          return { id: "1", name: "Chef Pâtissier", email: email };
         }
 
         // Si c'est faux, on retourne null (échec connexion)
-        return null
+        return null;
       },
     }),
   ],
   pages: {
-    signIn: '/login', // On dit à NextAuth où est notre page de login personnalisée
-  }
-})
+    signIn: "/login", // On dit à NextAuth où est notre page de login personnalisée
+  },
+});

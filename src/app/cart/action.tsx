@@ -11,7 +11,10 @@ type CartItemInput = {
   quantity: number;
 };
 
-export async function submitOrder(formData: FormData, cartItems: CartItemInput[]) {
+export async function submitOrder(
+  formData: FormData,
+  cartItems: CartItemInput[],
+) {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
   const phone = formData.get("phone") as string;
@@ -24,7 +27,9 @@ export async function submitOrder(formData: FormData, cartItems: CartItemInput[]
   const deliveryDate = dateRaw ? new Date(dateRaw) : new Date();
 
   if (!zip.startsWith("13")) {
-    throw new Error("Désolé, nous livrons uniquement sur Marseille et alentours (13).");
+    throw new Error(
+      "Désolé, nous livrons uniquement sur Marseille et alentours (13).",
+    );
   }
 
   if (cartItems.length === 0) {
@@ -77,7 +82,8 @@ export async function submitOrder(formData: FormData, cartItems: CartItemInput[]
     },
   });
 
-  if (!fullOrder) throw new Error("Erreur lors de la récupération de la commande");
+  if (!fullOrder)
+    throw new Error("Erreur lors de la récupération de la commande");
 
   // 3. Préparation des données Email
   const emailData = {

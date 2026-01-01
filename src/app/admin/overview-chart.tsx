@@ -1,15 +1,22 @@
-"use client"
+"use client";
 
-import {Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts"
+import {
+  Bar,
+  BarChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 interface OverviewChartProps {
   data: {
-    name: string
-    total: number
-  }[]
+    name: string;
+    total: number;
+  }[];
 }
 
-export function OverviewChart({data}: Readonly<OverviewChartProps>) {
+export function OverviewChart({ data }: Readonly<OverviewChartProps>) {
   return (
     <ResponsiveContainer width="100%" height={350}>
       <BarChart data={data}>
@@ -28,11 +35,11 @@ export function OverviewChart({data}: Readonly<OverviewChartProps>) {
           tickFormatter={(value) => `${value}€`}
         />
         <Tooltip
-          cursor={{fill: 'transparent'}}
+          cursor={{ fill: "transparent" }}
           contentStyle={{
-            borderRadius: '8px',
-            border: 'none',
-            boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
+            borderRadius: "8px",
+            border: "none",
+            boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
           }}
         />
         <Bar
@@ -42,5 +49,5 @@ export function OverviewChart({data}: Readonly<OverviewChartProps>) {
         />
       </BarChart>
     </ResponsiveContainer>
-  )
+  );
 }

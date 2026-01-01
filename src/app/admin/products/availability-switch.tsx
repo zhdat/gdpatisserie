@@ -34,7 +34,9 @@ export default function AvailabilitySwitch({
         onCheckedChange={onToggle}
         disabled={isPending} // On désactive le temps que le serveur réponde pour éviter le spam
         className={
-          isAvailable ? "bg-green-600! cursor-pointer" : "bg-slate-200!" + " cursor-pointer"
+          isAvailable
+            ? "bg-green-600! cursor-pointer"
+            : "bg-slate-200!" + " cursor-pointer"
         }
       />
       <span className="text-xs text-muted-foreground w-16">

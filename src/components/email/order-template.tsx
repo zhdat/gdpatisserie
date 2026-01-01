@@ -42,7 +42,9 @@ export const OrderEmail: React.FC<OrderEmailProps> = ({
       <Body style={main}>
         <Container style={container}>
           <Heading style={h1}>
-            {isForAdmin ? "👨‍🍳 Nouvelle Commande !" : "Merci pour votre commande ! 🍰"}
+            {isForAdmin
+              ? "👨‍🍳 Nouvelle Commande !"
+              : "Merci pour votre commande ! 🍰"}
           </Heading>
 
           <Text style={text}>
@@ -69,7 +71,10 @@ export const OrderEmail: React.FC<OrderEmailProps> = ({
             </Text>
             <ul style={{ paddingLeft: "20px" }}>
               {items.map((item) => (
-                <li key={item.id} style={{ marginBottom: "8px", color: "#444" }}>
+                <li
+                  key={item.id}
+                  style={{ marginBottom: "8px", color: "#444" }}
+                >
                   {item.quantity}x <strong>{item.name}</strong> -{" "}
                   {(item.price * item.quantity).toFixed(2)} €
                 </li>
@@ -83,7 +88,8 @@ export const OrderEmail: React.FC<OrderEmailProps> = ({
 
           {!isForAdmin && (
             <Text style={footer}>
-              Le paiement se fera à la livraison. Nous vous appellerons bientôt pour confirmer.
+              Le paiement se fera à la livraison. Nous vous appellerons bientôt
+              pour confirmer.
             </Text>
           )}
         </Container>

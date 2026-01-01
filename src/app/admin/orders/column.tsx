@@ -18,7 +18,9 @@ import { toast } from "sonner";
 import { formatPrice } from "@/lib/format-price";
 
 // On définit le type de données qu'on va afficher
-export type OrderColumn = Order & { items: (OrderItem & { product: Product })[] };
+export type OrderColumn = Order & {
+  items: (OrderItem & { product: Product })[];
+};
 
 export const columns: ColumnDef<OrderColumn>[] = [
   {
@@ -26,7 +28,11 @@ export const columns: ColumnDef<OrderColumn>[] = [
     header: "ID",
     cell: ({ row }) => {
       const id: string = row.getValue("idString");
-      return <span className="font-mono text-xs">#{id?.slice(-4).toUpperCase()}</span>;
+      return (
+        <span className="font-mono text-xs">
+          #{id?.slice(-4).toUpperCase()}
+        </span>
+      );
     },
   },
   {
@@ -35,7 +41,8 @@ export const columns: ColumnDef<OrderColumn>[] = [
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
           Date Livraison
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -43,7 +50,9 @@ export const columns: ColumnDef<OrderColumn>[] = [
     },
     cell: ({ row }) => {
       const date = new Date(row.getValue("deliveryDate"));
-      return <div className="font-medium">{date.toLocaleDateString("fr-FR")}</div>;
+      return (
+        <div className="font-medium">{date.toLocaleDateString("fr-FR")}</div>
+      );
     },
   },
   {
@@ -56,7 +65,9 @@ export const columns: ColumnDef<OrderColumn>[] = [
     cell: ({ row }) => (
       <div className="flex flex-col">
         <span className="font-bold">{row.getValue("customerName")}</span>
-        <span className="text-xs text-muted-foreground">{row.original.city}</span>
+        <span className="text-xs text-muted-foreground">
+          {row.original.city}
+        </span>
       </div>
     ),
   },
@@ -75,7 +86,8 @@ export const columns: ColumnDef<OrderColumn>[] = [
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
           Status
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -153,7 +165,10 @@ export const columns: ColumnDef<OrderColumn>[] = [
             <DropdownMenuItem onClick={() => handleUpdate("DELIVERED")}>
               Marquer Livré ✅
             </DropdownMenuItem>
-            <DropdownMenuItem className="text-red-600" onClick={() => handleUpdate("CANCELLED")}>
+            <DropdownMenuItem
+              className="text-red-600"
+              onClick={() => handleUpdate("CANCELLED")}
+            >
               Annuler la commande
             </DropdownMenuItem>
           </DropdownMenuContent>

@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import {Button} from "@/components/ui/button"
-import {Input} from "@/components/ui/input"
-import {Label} from "@/components/ui/label"
-import {authenticate} from "@/app/login/action";
-import {useActionState} from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { authenticate } from "@/app/login/action";
+import { useActionState } from "react";
 
 export default function LoginPage() {
-  const [errorMessage, dispatch] = useActionState(authenticate, undefined)
+  const [errorMessage, dispatch] = useActionState(authenticate, undefined);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-100 p-4">
@@ -31,12 +31,7 @@ export default function LoginPage() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Mot de passe</Label>
-            <Input
-              id="password"
-              name="password"
-              type="password"
-              required
-            />
+            <Input id="password" name="password" type="password" required />
           </div>
 
           {errorMessage && (
@@ -51,5 +46,5 @@ export default function LoginPage() {
         </form>
       </div>
     </div>
-  )
+  );
 }

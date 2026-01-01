@@ -1,29 +1,36 @@
-import Link from "next/link"
-import {Mail, MapPin, Phone} from "lucide-react"
-import {FaFacebookF, FaInstagram} from "react-icons/fa";
+import Link from "next/link";
+import { Mail, MapPin, Phone } from "lucide-react";
+import { FaInstagram } from "react-icons/fa";
 
 export function Footer() {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-slate-900 text-slate-200 py-12 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
-
         {/* COLONNE 1 : MARQUE */}
         <div className="space-y-4">
-          <h3 className="text-xl font-bold text-amber-500 font-serif">GD Pâtisserie 🧁</h3>
+          <h3 className="text-xl font-bold text-amber-500 font-serif">
+            GD Pâtisserie{" "}
+          </h3>
+          <Link href="/">
+            <img
+              src="/images/logo.png"
+              alt="Logo GD Pâtisserie"
+              className="w-28 h-auto rounded-md"
+            />
+          </Link>
           <p className="text-sm text-slate-400 leading-relaxed">
-            Pâtisserie artisanale à Marseille.
-            Nous sélectionnons les meilleurs ingrédients pour des créations gourmandes et
-            authentiques.
+            Pâtisserie artisanale à Marseille. Nous sélectionnons les meilleurs
+            ingrédients pour des créations gourmandes et authentiques.
           </p>
           <div className="flex gap-4 pt-2">
             {/* Liens réseaux sociaux factices */}
-            <Link href="#" className="hover:text-amber-500 transition-colors">
-              <FaInstagram className="h-5 w-5"/>
-            </Link>
-            <Link href="#" className="hover:text-amber-500 transition-colors">
-              <FaFacebookF className="h-5 w-5"/>
+            <Link
+              href="https://www.instagram.com/g.dpatisserie/"
+              className="hover:text-amber-500 transition-colors"
+            >
+              <FaInstagram className="h-5 w-5" />
             </Link>
           </div>
         </div>
@@ -33,19 +40,33 @@ export function Footer() {
           <h4 className="font-bold text-white">Boutique</h4>
           <ul className="space-y-2 text-sm">
             <li>
-              <Link href="/" className="hover:text-amber-500 transition-colors">Accueil</Link>
+              <Link href="/" className="hover:text-amber-500 transition-colors">
+                Accueil
+              </Link>
             </li>
             <li>
-              <Link href="/catalog" className="hover:text-amber-500 transition-colors">Tout le
-                catalogue</Link>
+              <Link
+                href="/catalog"
+                className="hover:text-amber-500 transition-colors"
+              >
+                Tout le catalogue
+              </Link>
             </li>
             <li>
-              <Link href="/catalog?category=gateaux"
-                    className="hover:text-amber-500 transition-colors">Nos Gâteaux</Link>
+              <Link
+                href="/catalog?category=gateaux"
+                className="hover:text-amber-500 transition-colors"
+              >
+                Nos Gâteaux
+              </Link>
             </li>
             <li>
-              <Link href="/catalog?category=chocolats"
-                    className="hover:text-amber-500 transition-colors">Nos Chocolats</Link>
+              <Link
+                href="/catalog?category=chocolats"
+                className="hover:text-amber-500 transition-colors"
+              >
+                Nos Chocolats
+              </Link>
             </li>
           </ul>
         </div>
@@ -55,20 +76,23 @@ export function Footer() {
           <h4 className="font-bold text-white">Contactez-nous</h4>
           <ul className="space-y-3 text-sm">
             <li className="flex items-start gap-3">
-              <MapPin className="h-5 w-5 text-amber-500 shrink-0"/>
+              <MapPin className="h-5 w-5 text-amber-500 shrink-0" />
               <span>
-                123 Rue de la République<br/>
-                13002 Marseille
+                Impasse Roxane
+                <br />
+                13005 Marseille
               </span>
             </li>
             <li className="flex items-center gap-3">
-              <Phone className="h-5 w-5 text-amber-500 shrink-0"/>
-              <span>06 12 34 56 78</span>
+              <Phone className="h-5 w-5 text-amber-500 shrink-0" />
+              <span>06 30 73 84 27</span>
             </li>
             <li className="flex items-center gap-3">
-              <Mail className="h-5 w-5 text-amber-500 shrink-0"/>
-              <a href="mailto:contact@gdpatisserie.fr"
-                 className="hover:text-white transition-colors">
+              <Mail className="h-5 w-5 text-amber-500 shrink-0" />
+              <a
+                href="mailto:contact@gdpatisserie.fr"
+                className="hover:text-white transition-colors"
+              >
                 contact@gdpatisserie.fr
               </a>
             </li>
@@ -93,20 +117,24 @@ export function Footer() {
             </li>
           </ul>
         </div>
-
       </div>
 
       {/* COPYRIGHT */}
-      <div
-        className="max-w-7xl mx-auto px-4 mt-12 pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
+      <div className="max-w-7xl mx-auto px-4 mt-12 pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
         <p>&copy; {currentYear} GD Pâtisserie. Tous droits réservés.</p>
         <div className="mt-2 space-x-4">
           {/* Liens légaux (à créer un jour) */}
-          <Link href="#" className="hover:text-slate-300">Mentions Légales</Link>
-          <Link href="#" className="hover:text-slate-300">CGV</Link>
-          <Link href="/login" className="hover:text-slate-300">Accès Staff</Link>
+          <Link href="#" className="hover:text-slate-300">
+            Mentions Légales
+          </Link>
+          <Link href="#" className="hover:text-slate-300">
+            CGV
+          </Link>
+          <Link href="/login" className="hover:text-slate-300">
+            Accès Staff
+          </Link>
         </div>
       </div>
     </footer>
-  )
+  );
 }

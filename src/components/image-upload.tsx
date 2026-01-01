@@ -1,8 +1,8 @@
 "use client";
 
-import {CldUploadWidget} from "next-cloudinary";
-import {Button} from "@/components/ui/button";
-import {ImagePlus, Trash} from "lucide-react";
+import { CldUploadWidget } from "next-cloudinary";
+import { Button } from "@/components/ui/button";
+import { ImagePlus, Trash } from "lucide-react";
 import Image from "next/image";
 
 interface ImageUploadProps {
@@ -13,12 +13,11 @@ interface ImageUploadProps {
 }
 
 export default function ImageUpload({
-                                      disabled,
-                                      onChange,
-                                      onRemove,
-                                      value,
-                                    }: Readonly<ImageUploadProps>) {
-
+  disabled,
+  onChange,
+  onRemove,
+  value,
+}: Readonly<ImageUploadProps>) {
   // Fonction appelée quand l'upload est fini
   const onUpload = (result: any) => {
     // result.info.secure_url contient le lien HTTPS de l'image
@@ -29,7 +28,10 @@ export default function ImageUpload({
     <div>
       <div className="mb-4 flex items-center gap-4">
         {value.map((url) => (
-          <div key={url} className="relative w-[200px] h-[200px] rounded-md overflow-hidden">
+          <div
+            key={url}
+            className="relative w-[200px] h-[200px] rounded-md overflow-hidden"
+          >
             <div className="z-10 absolute top-2 right-2">
               <Button
                 type="button"
@@ -37,7 +39,7 @@ export default function ImageUpload({
                 variant="destructive"
                 size="icon"
               >
-                <Trash className="h-4 w-4"/>
+                <Trash className="h-4 w-4" />
               </Button>
             </div>
             <Image
@@ -54,7 +56,7 @@ export default function ImageUpload({
         onSuccess={onUpload} // Utilise onSuccess au lieu de onUpload (changement récent v5/v6)
         uploadPreset="gdpatisserie_preset" // ⚠️ Mets bien le nom de ton preset ici
       >
-        {({open}) => {
+        {({ open }) => {
           const onClick = () => {
             open();
           };
@@ -66,7 +68,7 @@ export default function ImageUpload({
               variant="secondary"
               onClick={onClick}
             >
-              <ImagePlus className="h-4 w-4 mr-2"/>
+              <ImagePlus className="h-4 w-4 mr-2" />
               Ajouter une image
             </Button>
           );

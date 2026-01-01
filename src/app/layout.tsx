@@ -1,16 +1,24 @@
-import type {Metadata} from "next";
-import {Geist, Geist_Mono} from "next/font/google";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import {Navbar} from "@/components/navbar";
-import {Footer} from "@/components/footer";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
 
 export const metadata: Metadata = {
   title: {
     template: "%s | GD Pâtisserie", // %s sera remplacé par le titre des autres pages
     default: "GD Pâtisserie - Artisan Pâtissier à Marseille",
   },
-  description: "Découvrez nos pâtisseries et chocolats artisanaux. Commandez en ligne et faites-vous livrer à Marseille. Fraîcheur garantie.",
-  keywords: ["pâtisserie", "marseille", "gâteaux", "chocolat", "livraison", "artisan"],
+  description:
+    "Découvrez nos pâtisseries et chocolats artisanaux. Commandez en ligne et faites-vous livrer à Marseille. Fraîcheur garantie.",
+  keywords: [
+    "pâtisserie",
+    "marseille",
+    "gâteaux",
+    "chocolat",
+    "livraison",
+    "artisan",
+  ],
   openGraph: {
     title: "GD Pâtisserie - Artisan Pâtissier",
     description: "Le meilleur de la pâtisserie livré chez vous.",
@@ -32,19 +40,22 @@ const geistMono = Geist_Mono({
 });
 
 export default function RootLayout({
-                                     children,
-                                   }: Readonly<{
+  children,
+}: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-    <body
-      className={`${geistSans.variable} ${geistMono.variable} antialiased` +  "min-h-screen"}
-    >
-    <Navbar/>
-    {children}
-    <Footer/>
-    </body>
+      <body
+        className={
+          `${geistSans.variable} ${geistMono.variable} antialiased` +
+          "min-h-screen"
+        }
+      >
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
