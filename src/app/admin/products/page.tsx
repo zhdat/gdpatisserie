@@ -2,7 +2,6 @@ import {Button} from "@/components/ui/button";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {prisma} from "@/lib/db";
 import Link from "next/link";
-import {signOut} from "@/auth";
 import {deleteProduct} from "@/app/admin/products/action";
 import AvailabilitySwitch from "@/app/admin/products/availability-switch";
 
@@ -13,13 +12,14 @@ export const dynamic = 'force-dynamic'
 export default async function AdminProductsPage() {
   // 1. Récupération des données (Server-Side)
   const products = await prisma.product.findMany({
-    orderBy: {
-      createdAt: "desc" // Les plus récents en premier
-    },
+    orderBy: [
+      {createdAt: "desc"}, // Les plus récents en premier
+      {id: "asc"}
+    ],
     include: {
       category: true // On veut aussi récupérer le nom de la catégorie associée
     },
-    where:{
+    where: {
       isArchived: false
     }
   });
@@ -32,17 +32,6 @@ export default async function AdminProductsPage() {
           <Link href="/admin/products/new">+ Nouveau Produit</Link>
         </Button>
       </div>
-
-      <form
-        action={async () => {
-          "use server"
-          await signOut()
-        }}
-        className={"mb-6"}
-      >
-        <Button variant="outline" size="sm">Se déconnecter</Button>
-      </form>
-
       <div className="border rounded-md">
         <Table>
           <TableHeader>

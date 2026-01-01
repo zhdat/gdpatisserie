@@ -3,11 +3,11 @@
 import {Button} from "@/components/ui/button"
 import {Input} from "@/components/ui/input"
 import {Label} from "@/components/ui/label"
-import {useFormState} from "react-dom"
 import {authenticate} from "@/app/login/action";
+import {useActionState} from "react";
 
 export default function LoginPage() {
-  const [errorMessage, dispatch] = useFormState(authenticate, undefined)
+  const [errorMessage, dispatch] = useActionState(authenticate, undefined)
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-100 p-4">

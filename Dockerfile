@@ -23,6 +23,13 @@ COPY . .
 # Installation pnpm pour le build
 RUN npm install -g pnpm
 
+# --- 🛠️ CORRECTION CLOUDINARY ---
+# On déclare qu'on attend un argument
+ARG NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+# On l'injecte dans l'environnement du build
+ENV NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=${NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
+# -------------------------------
+
 ENV DATABASE_URL="postgresql://build:build@localhost:5432/build_db"
 
 # Génération du client Prisma (Important !)
@@ -50,6 +57,17 @@ COPY --from=builder /app/public ./public
 # On copie le mode "standalone" généré par Next.js
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# --- 🛠️ CORRECTIONS POUR PRISMA ---
+
+# 1. On copie explicitement le dossier prisma (Schéma + Seed)
+COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
+
+# 2. On installe ts-node et typescript globalement pour pouvoir lancer le seed
+# (Car ils ont été supprimés du dossier node_modules optimisé)
+RUN npm install -g ts-node typescript
+
+# -----------------------------------
 
 # On passe sur l'utilisateur sécurisé
 USER nextjs
