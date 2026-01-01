@@ -5,7 +5,11 @@ test("Un client peut rechercher un produit", async ({ page }) => {
 
   // 1. Chercher un produit
   // On suppose que tu as mis un placeholder "Rechercher..." dans ton input
-  await page.getByPlaceholder("Rechercher").fill("Citron");
+  const searchInput = page.getByPlaceholder("Rechercher");
+
+  await searchInput.fill("Citron");
+
+  await searchInput.press("Enter");
 
   // 2. Attendre que l'URL change (si tu as mis la recherche dans l'URL)
   await expect(page).toHaveURL(/q=Citron/);
