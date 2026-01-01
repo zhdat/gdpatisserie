@@ -15,6 +15,7 @@ export default function CartPage() {
   const { items, removeItem, addItem, clearCart, decrementItemQuantity } =
     useCartStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
@@ -28,6 +29,8 @@ export default function CartPage() {
     0,
   );
 
+  const today = new Date().toLocaleDateString("fr-CA");
+
   // Gestionnaire de soumission du formulaire
   async function onSubmit(formData: FormData) {
     setIsSubmitting(true);
@@ -39,6 +42,8 @@ export default function CartPage() {
 
       // Appel de la Server Action
       await submitOrder(formData, cartData);
+
+      setIsSuccess(true);
 
       // Si succès (pas d'erreur levée) :
       clearCart(); // On vide le panier local
@@ -54,6 +59,17 @@ export default function CartPage() {
 
   // Attendre l'hydratation (évite le flash bizarre)
   if (!mounted) return null;
+
+  // Si succès, on peut afficher un petit loader en attendant la redirection
+  if (isSuccess) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <p className="text-xl font-bold text-amber-600 animate-pulse">
+          Commande validée, redirection...
+        </p>
+      </div>
+    );
+  }
 
   if (items.length === 0) {
     return (
@@ -215,7 +231,8 @@ export default function CartPage() {
                     name="date"
                     type="date"
                     required
-                    min={new Date().toISOString().split("T")[0]} // Empêche de choisir une date passée
+                    min={today} // Empêche de choisir une date passée
+                    defaultValue={today}
                   />
                 </div>
                 <div className="grid gap-2">

@@ -29,7 +29,9 @@ export default function AddToCartButton({
   return (
     <Button
       onClick={handleClick}
-      className={`w-full transition-all ${isAdded ? "bg-green-600 hover:bg-green-700" : ""}`}
+      className={`w-full transition-all cursor-pointer ${
+        isAdded ? "bg-green-600" + " hover:bg-green-700" : ""
+      }`}
     >
       {isAdded ? "Ajouté au panier ! 🍰" : "Ajouter au panier"}
     </Button>

@@ -106,8 +106,8 @@ export default function ProductForm({
             Produit disponible à la vente
           </Label>
           <p className="text-sm text-muted-foreground">
-            Décochez cette case pour marquer le produit comme "Épuisé" sans le
-            supprimer.
+            Décochez cette case pour marquer le produit comme &#34;Épuisé&#34;
+            sans le supprimer.
           </p>
         </div>
       </div>

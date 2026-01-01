@@ -6,8 +6,6 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminOrdersPage() {
   // On récupère les commandes
-  // Note: On n'a plus besoin de 'include: items' ici car le tableau n'affiche pas le détail des gâteaux par défaut
-  // Si tu veux afficher le détail, il faudrait faire un "Row Expansion" (plus complexe) ou un bouton "Voir détail"
   const orders = await prisma.order.findMany({
     orderBy: { createdAt: "desc" },
     include: {

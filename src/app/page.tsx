@@ -11,6 +11,7 @@ import AddToCartButton from "@/components/add-to-cart-button";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/db";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -30,7 +31,7 @@ export default async function HomePage() {
         {/* Tu pourras ajouter une image de fond ici plus tard */}
         <div className="relative z-10 max-w-4xl mx-auto px-4">
           <Badge className="mb-4 bg-amber-500 hover:bg-amber-600">
-            Artisan Pâtissier à Marseille
+            Gilles Dabzol
           </Badge>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif">
             Le goût de l&apos;authentique
@@ -43,7 +44,7 @@ export default async function HomePage() {
             <Link href="/catalog">
               <Button
                 size="lg"
-                className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-6 text-lg"
+                className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-6 text-lg cursor-pointer"
               >
                 Commander maintenant
               </Button>
@@ -52,7 +53,7 @@ export default async function HomePage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="text-amber-500 border-amber-500 hover:bg-amber-950 px-8 py-6 text-lg"
+                className="text-amber-500 border-amber-500 hover:bg-amber-950 px-8 py-6 text-lg cursor-pointer"
               >
                 Nos Chocolats
               </Button>
@@ -84,14 +85,15 @@ export default async function HomePage() {
           {latestProducts.map((product) => (
             <Card
               key={product.id}
-              className="group overflow-hidden border-none shadow-md hover:shadow-xl transition-all"
+              className="group overflow-hidden border-none shadow-md hover:shadow-xl transition-all flex flex-col h-full"
             >
-              <div className="relative h-64 w-full bg-slate-200 overflow-hidden">
+              <div className="relative h-64 w-full bg-slate-200 overflow-hidden flex-none">
                 {product.imageUrl && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
+                  <Image
                     src={product.imageUrl}
                     alt={product.name}
+                    width={2000}
+                    height={2000}
                     className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                   />
                 )}
@@ -102,7 +104,7 @@ export default async function HomePage() {
                 </div>
               </div>
 
-              <CardHeader>
+              <CardHeader className="flex-1">
                 <div className="flex justify-between items-center">
                   <CardTitle className="text-xl group-hover:text-amber-700 transition-colors">
                     {product.name}
@@ -116,7 +118,7 @@ export default async function HomePage() {
                 </CardDescription>
               </CardHeader>
 
-              <CardFooter>
+              <CardFooter className="mt-auto" hidden={product.isArchived}>
                 <AddToCartButton product={product} />
               </CardFooter>
             </Card>
@@ -140,8 +142,6 @@ export default async function HomePage() {
             Chez GD Pâtisserie, nous ne travaillons qu&apos;avec des produits
             frais et de saison. Pas de stocks industriels, tout est préparé à la
             commande pour garantir une qualité exceptionnelle.
-            <br />
-            Basé à Marseille, nous avons à cœur de vous régaler.
           </p>
           {/* Tu pourras mettre une photo du pâtissier ici plus tard */}
         </div>

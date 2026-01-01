@@ -23,21 +23,30 @@ export default function AdminLayout({
 
           <div className="flex items-center gap-1">
             <Link href="/admin">
-              <Button variant="ghost" className="text-slate-600 gap-2">
+              <Button
+                variant="ghost"
+                className="text-slate-600 gap-2 cursor-pointer"
+              >
                 <LayoutDashboard className="h-4 w-4" />
                 Dashboard
               </Button>
             </Link>
 
             <Link href="/admin/orders">
-              <Button variant="ghost" className="text-slate-600 gap-2">
+              <Button
+                variant="ghost"
+                className="text-slate-600 gap-2 cursor-pointer"
+              >
                 <ShoppingBag className="h-4 w-4" />
                 Commandes
               </Button>
             </Link>
 
             <Link href="/admin/products">
-              <Button variant="ghost" className="text-slate-600 gap-2">
+              <Button
+                variant="ghost"
+                className="text-slate-600 gap-2 cursor-pointer"
+              >
                 <Cake className="h-4 w-4" />
                 Produits
               </Button>
@@ -59,7 +68,11 @@ export default function AdminLayout({
               await signOut({ redirectTo: "/login" });
             }}
           >
-            <Button variant="destructive" size="sm" className="gap-2">
+            <Button
+              variant="destructive"
+              size="sm"
+              className="gap-2 cursor-pointer"
+            >
               <LogOut className="h-4 w-4" />
               Sortir
             </Button>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { FaInstagram } from "react-icons/fa";
+import Image from "next/image";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -10,16 +11,18 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* COLONNE 1 : MARQUE */}
         <div className="space-y-4">
-          <h3 className="text-xl font-bold text-amber-500 font-serif">
-            GD Pâtisserie{" "}
-          </h3>
-          <Link href="/">
-            <img
-              src="/images/logo.png"
+          <div className="flex items-center">
+            <h3 className="text-xl font-bold text-amber-500 font-serif">
+              GD Pâtisserie{" "}
+            </h3>
+            <Image
+              src="/logo.jpg"
+              width={38}
+              height={38}
               alt="Logo GD Pâtisserie"
-              className="w-28 h-auto rounded-md"
+              className="rounded-md ml-2"
             />
-          </Link>
+          </div>
           <p className="text-sm text-slate-400 leading-relaxed">
             Pâtisserie artisanale à Marseille. Nous sélectionnons les meilleurs
             ingrédients pour des créations gourmandes et authentiques.

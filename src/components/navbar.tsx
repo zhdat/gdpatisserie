@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import CartIndicator from "@/components/cart-indicator";
+import Image from "next/image";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -22,8 +23,18 @@ export function Navbar() {
     <nav className="sticky top-0 z-40 w-full border-b bg-white/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* LOGO */}
-        <Link href="/" className="font-bold text-xl text-amber-700 font-serif">
-          GD Pâtisserie 🧁
+        <Link
+          href="/"
+          className="font-bold text-xl text-amber-700 font-serif flex items-center gap-2"
+        >
+          GD Pâtisserie
+          <Image
+            src="/logo.jpg"
+            width={32}
+            height={32}
+            alt="Logo GD Pâtisserie"
+            className="rounded-md"
+          />
         </Link>
 
         {/* LIENS CENTRAUX */}
