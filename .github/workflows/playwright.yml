@@ -10,7 +10,6 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
 
-    # 👇 1. ON CRÉE UNE BASE DE DONNÉES TEMPORAIRE
     services:
       postgres:
         image: postgres:15-alpine
@@ -20,7 +19,6 @@ jobs:
           POSTGRES_DB: gdpatisserie_test
         ports:
           - 5432:5432
-        # On attend que la BDD soit prête avant de lancer la suite
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -37,22 +35,24 @@ jobs:
       - name: Install dependencies
         run: npm install -g pnpm && pnpm install
 
-      # 👇 2. ON INITIALISE LA BDD
-      - name: Setup Database
-        # On force l'URL de connexion vers le service créé au-dessus
+      - name: Setup Database (Push Schema)
         env:
           DATABASE_URL: postgres://gduser:securepass@localhost:5432/gdpatisserie_test
         run: npx prisma@6 db push
 
+      # 👇 AJOUT ICI : ON REMPLIT LA BASE DE DONNÉES
+      - name: Seed Database
+        env:
+          DATABASE_URL: postgres://gduser:securepass@localhost:5432/gdpatisserie_test
+          # On utilise la commande "transpile-only" pour éviter les erreurs TS strictes en CI
+        run: npx ts-node --transpile-only --compiler-options '{"module":"CommonJS","target":"ES2020"}' prisma/seed.ts
+
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
 
-      # 👇 3. ON LANCE LES TESTS AVEC LES VARIABLES D'ENVIRONNEMENT
       - name: Run Playwright tests
         env:
-          # URL de la BDD temporaire
           DATABASE_URL: postgres://gduser:securepass@localhost:5432/gdpatisserie_test
-          # Clés fictives pour que Next.js ne plante pas au démarrage
           AUTH_SECRET: "secret-pour-les-tests-ci"
           NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: "demo"
           RESEND_API_KEY: "re_123456"

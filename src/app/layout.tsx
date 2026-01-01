@@ -27,6 +27,14 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     type: "website",
   },
+  icons: {
+    icon: [
+      {
+        url: "/favicon.ico",
+        href: "/favicon.ico",
+      },
+    ],
+  },
 };
 
 const geistSans = Geist({
