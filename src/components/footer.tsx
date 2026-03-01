@@ -83,7 +83,7 @@ export function Footer() {
               <span>
                 Impasse Roxane
                 <br />
-                13005 Marseille
+                13011 Marseille
               </span>
             </li>
             <li className="flex items-center gap-3">

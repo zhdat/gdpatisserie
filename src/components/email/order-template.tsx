@@ -14,6 +14,11 @@ import {
 interface OrderEmailProps {
   orderId: string;
   customerName: string;
+  customerPhone: string;
+  customerEmail: string;
+  address: string;
+  city: string;
+  zipCode: string;
   items: { id: string; name: string; quantity: number; price: number }[];
   totalAmount: number;
   deliveryDate: Date;
@@ -24,6 +29,11 @@ interface OrderEmailProps {
 export const OrderEmail: React.FC<OrderEmailProps> = ({
   orderId,
   customerName,
+  customerPhone,
+  customerEmail,
+  address,
+  city,
+  zipCode,
   items,
   totalAmount,
   deliveryDate,
@@ -57,9 +67,13 @@ export const OrderEmail: React.FC<OrderEmailProps> = ({
             <Text style={paragraph}>
               <strong>Commande :</strong> #{orderId.slice(-4).toUpperCase()}
               <br />
-              <strong>Date prévue :</strong> {formattedDate}
+              <strong>Client :</strong> {customerName} ({customerPhone})
               <br />
-              <strong>Créneau :</strong> {deliveryTime}
+              <strong>Email :</strong> {customerEmail}
+              <br />
+              <strong>Livraison :</strong> {address}, {zipCode} {city}
+              <br />
+              <strong>Prévue le :</strong> {formattedDate} à {deliveryTime}
             </Text>
           </Section>
 

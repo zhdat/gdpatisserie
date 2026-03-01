@@ -89,6 +89,11 @@ export async function submitOrder(
   const emailData = {
     orderId: fullOrder.idString,
     customerName: name,
+    customerPhone: phone,
+    customerEmail: email,
+    address: address,
+    city: city,
+    zipCode: zip,
     items: fullOrder.items.map((i) => ({
       id: i.product.id,
       name: i.product.name,
@@ -103,7 +108,7 @@ export async function submitOrder(
   try {
     // A. Email CLIENT
     await resend.emails.send({
-      from: "GD Pâtisserie <onboarding@resend.dev>",
+      from: "GD Pâtisserie <boutique@gdpatisserie.fr>",
       to: email,
       subject: "Confirmation de votre commande 🍰",
       react: <OrderEmail {...emailData} />,
@@ -111,7 +116,7 @@ export async function submitOrder(
 
     // B. Email ADMIN
     await resend.emails.send({
-      from: "GD Pâtisserie <onboarding@resend.dev>",
+      from: "GD Pâtisserie <boutique@gdpatisserie.fr>",
       to: "admin@gdpatisserie.com",
       subject: "👨‍🍳 Nouvelle commande reçue !",
       react: <OrderEmail {...emailData} isForAdmin={true} />,

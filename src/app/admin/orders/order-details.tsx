@@ -42,15 +42,35 @@ export default function OrderDetails({
 
         <div className="space-y-6">
           {/* Infos Livraison */}
-          <div className="bg-slate-50 p-3 rounded-md text-sm border">
+          <div className="bg-slate-50 p-3 rounded-md text-sm border space-y-2">
             <p className="font-bold text-amber-700">
               📅 Pour le{" "}
-              {new Date(order.deliveryDate).toLocaleDateString("fr-FR")}
+              {new Date(order.deliveryDate).toLocaleDateString("fr-FR")} à{" "}
+              {order.deliveryTime}
             </p>
-            <p>⏰ Créneau : {order.deliveryTime}</p>
-            <p>
-              📍 {order.customerName} - {order.city}
-            </p>
+
+            <div className="border-t pt-2 mt-2">
+              <p className="font-bold underline">Contact Client :</p>
+              <p>👤 {order.customerName}</p>
+              <p>
+                📞{" "}
+                <a
+                  href={`tel:${order.customerPhone}`}
+                  className="text-blue-600"
+                >
+                  {order.customerPhone}
+                </a>
+              </p>
+              <p>📧 {order.customerEmail}</p>
+            </div>
+
+            <div className="border-t pt-2">
+              <p className="font-bold underline">Adresse :</p>
+              <p>{order.address}</p>
+              <p>
+                {order.zipCode} {order.city}
+              </p>
+            </div>
           </div>
 
           {/* Liste des gâteaux (Le plus important pour le chef) */}
