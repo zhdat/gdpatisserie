@@ -11,6 +11,9 @@ export async function createProduct(formData: FormData) {
   const price = Number.parseFloat(formData.get("price") as string);
   const categoryId = formData.get("categoryId") as string;
   const imageUrl = formData.get("imageUrl") as string;
+  const weight = formData.get("weight") as string;
+  const allergens = formData.get("allergens") as string;
+  const storage = formData.get("storage") as string;
 
   const isAvailable = formData.get("isAvailable") === "true";
 
@@ -23,6 +26,9 @@ export async function createProduct(formData: FormData) {
       categoryId,
       imageUrl,
       isAvailable: isAvailable, // Par défaut
+      weight,
+      allergens,
+      storage,
     },
   });
 
@@ -40,6 +46,9 @@ export async function updateProduct(id: string, formData: FormData) {
   const price = Number.parseFloat(formData.get("price") as string);
   const categoryId = formData.get("categoryId") as string;
   const imageUrl = formData.get("imageUrl") as string;
+  const weight = formData.get("weight") as string;
+  const allergens = formData.get("allergens") as string;
+  const storage = formData.get("storage") as string;
 
   const isAvailable = formData.get("isAvailable") === "true";
 
@@ -52,6 +61,9 @@ export async function updateProduct(id: string, formData: FormData) {
       imageUrl,
       categoryId,
       isAvailable: isAvailable,
+      weight,
+      allergens,
+      storage,
     },
   });
 

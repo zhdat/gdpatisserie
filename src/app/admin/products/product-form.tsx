@@ -9,10 +9,6 @@ import ImageUpload from "@/components/image-upload";
 import { Category, Product } from "@prisma/client";
 import { Checkbox } from "@/components/ui/checkbox";
 
-// On définit les props :
-// - categories: Toujours requis
-// - initialData: Optionnel (présent uniquement en mode Edit)
-// - action: La fonction serveur à appeler (Create ou Update)
 interface ProductFormProps {
   categories: Category[];
   initialData?: Product | null;
@@ -79,6 +75,37 @@ export default function ProductForm({
             </option>
           ))}
         </select>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <Label htmlFor="weight">Format / Poids</Label>
+          <Input
+            id="weight"
+            name="weight"
+            defaultValue={initialData?.weight ?? undefined}
+            placeholder="Ex: 500g ou 6 parts"
+          />
+        </div>
+        <div>
+          <Label htmlFor="allergens">Allergènes</Label>
+          <Input
+            id="allergens"
+            name="allergens"
+            defaultValue={initialData?.allergens ?? undefined}
+            placeholder="Ex: Œufs, Gluten..."
+          />
+        </div>
+      </div>
+
+      <div className="mt-4">
+        <Label htmlFor="storage">Conseils de conservation</Label>
+        <Textarea
+          id="storage"
+          name="storage"
+          defaultValue={initialData?.storage ?? undefined}
+          placeholder="Ex: À consommer dans les 3 jours..."
+        />
       </div>
 
       {/* IMAGE UPLOAD (Le changement est ici) */}

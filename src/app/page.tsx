@@ -83,45 +83,51 @@ export default async function HomePage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {latestProducts.map((product) => (
-            <Card
+            <Link
               key={product.id}
-              className="group overflow-hidden border-none shadow-md hover:shadow-xl transition-all flex flex-col h-full"
+              href={`/catalog/${product.id}`}
+              className="group cursor-pointer"
             >
-              <div className="relative h-64 w-full bg-slate-200 overflow-hidden flex-none">
-                {product.imageUrl && (
-                  <Image
-                    src={product.imageUrl}
-                    alt={product.name}
-                    width={2000}
-                    height={2000}
-                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-                  />
-                )}
-                <div className="absolute top-3 left-3">
-                  <Badge className="bg-white/90 text-black hover:bg-white">
-                    {product.category.name}
-                  </Badge>
+              <Card
+                key={product.id}
+                className="group overflow-hidden border-none shadow-md hover:shadow-xl transition-all flex flex-col h-full"
+              >
+                <div className="relative h-64 w-full bg-slate-200 overflow-hidden flex-none">
+                  {product.imageUrl && (
+                    <Image
+                      src={product.imageUrl}
+                      alt={product.name}
+                      width={2000}
+                      height={2000}
+                      className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                    />
+                  )}
+                  <div className="absolute top-3 left-3">
+                    <Badge className="bg-white/90 text-black hover:bg-white">
+                      {product.category.name}
+                    </Badge>
+                  </div>
                 </div>
-              </div>
 
-              <CardHeader className="flex-1">
-                <div className="flex justify-between items-center">
-                  <CardTitle className="text-xl group-hover:text-amber-700 transition-colors">
-                    {product.name}
-                  </CardTitle>
-                  <span className="font-bold text-lg">
-                    {product.price.toFixed(2)} €
-                  </span>
-                </div>
-                <CardDescription className="line-clamp-2">
-                  {product.description}
-                </CardDescription>
-              </CardHeader>
+                <CardHeader className="flex-1">
+                  <div className="flex justify-between items-center">
+                    <CardTitle className="text-xl group-hover:text-amber-700 transition-colors">
+                      {product.name}
+                    </CardTitle>
+                    <span className="font-bold text-lg">
+                      {product.price.toFixed(2)} €
+                    </span>
+                  </div>
+                  <CardDescription className="line-clamp-2">
+                    {product.description}
+                  </CardDescription>
+                </CardHeader>
 
-              <CardFooter className="mt-auto" hidden={product.isArchived}>
-                <AddToCartButton product={product} />
-              </CardFooter>
-            </Card>
+                <CardFooter className="mt-auto" hidden={product.isArchived}>
+                  <AddToCartButton product={product} />
+                </CardFooter>
+              </Card>
+            </Link>
           ))}
         </div>
 

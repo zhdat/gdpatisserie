@@ -60,6 +60,27 @@ export default async function ProductDetailPage({
             </p>
           </div>
 
+          <div className="space-y-4 border-t pt-4 mt-4">
+            {product.weight && (
+              <p className="text-sm text-gray-500">
+                <span className="font-bold">Format :</span> {product.weight}
+              </p>
+            )}
+            {product.allergens && (
+              <div className="bg-orange-50 p-3 rounded-md">
+                <p className="text-sm text-orange-800">
+                  <span className="font-bold">Allergènes :</span>{" "}
+                  {product.allergens}
+                </p>
+              </div>
+            )}
+            {product.storage && (
+              <p className="text-sm text-blue-600 italic">
+                ℹ️ {product.storage}
+              </p>
+            )}
+          </div>
+
           <div className="mt-4 pt-6 border-t">
             {product.isAvailable ? (
               <div className="flex flex-col gap-4">
