@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     await s3Client.send(command);
 
     // Attention : en production, il faudra utiliser votre vrai nom de domaine
-    const publicUrl = `http://localhost:9000/${bucketName}/${uniqueFilename}`;
+    const publicUrl = `https://www.gdpatisserie.fr/storage/${bucketName}/${uniqueFilename}`;
 
     return NextResponse.json({ url: publicUrl });
   } catch (error) {

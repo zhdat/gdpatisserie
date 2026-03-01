@@ -7,10 +7,15 @@ const nextConfig: NextConfig = {
       {
         protocol: "http",
         hostname: "localhost",
+        port: "9000",
       },
       {
         protocol: "https",
-        hostname: "gdpatisserie.fr", // Pour la prod
+        hostname: "gdpatisserie.fr",
+      },
+      {
+        protocol: "https",
+        hostname: "www.gdpatisserie.fr",
       },
     ],
   },

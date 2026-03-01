@@ -24,8 +24,7 @@ export default function LoginPage() {
               id="email"
               name="email"
               type="email"
-              placeholder="admin@gdpatisserie.com"
-              defaultValue="admin@gdpatisserie.com" // Pour te faciliter le test
+              placeholder="admin@gdpatisserie.fr"
               required
             />
           </div>
