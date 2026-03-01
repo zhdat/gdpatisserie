@@ -20,9 +20,13 @@ datasource db {
 model Product {
   id          String  @id @default(cuid()) // id unique
   name        String
-  description String? // ? => optionnel
+  description String?
   price       Float
   imageUrl    String?
+
+  weight    String?
+  allergens String?
+  storage   String?
 
   // Gestion de la disponibilité
   isAvailable Boolean @default(true)

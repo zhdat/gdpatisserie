@@ -110,44 +110,50 @@ export default async function CatalogPage({
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.map((product) => (
-              <Card
+              <Link
                 key={product.id}
-                className="overflow-hidden hover:shadow-lg transition-shadow flex flex-col"
+                href={`/catalog/${product.id}`}
+                className="group cursor-pointer"
               >
-                <div className="relative h-56 w-full bg-slate-200">
-                  {product.imageUrl ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={product.imageUrl}
-                      alt={product.name}
-                      className="object-cover w-full h-full"
-                    />
-                  ) : (
-                    <div className="flex items-center justify-center h-full text-slate-400">
-                      Image indisponible
-                    </div>
-                  )}
-                </div>
-
-                <CardHeader>
-                  <div className="flex justify-between items-start mb-2">
-                    <Badge variant="secondary" className="text-xs">
-                      {product.category.name}
-                    </Badge>
-                    <span className="text-lg font-bold text-amber-700">
-                      {product.price.toFixed(2)} €
-                    </span>
+                <Card
+                  key={product.id}
+                  className="overflow-hidden hover:shadow-lg transition-shadow flex flex-col"
+                >
+                  <div className="relative h-56 w-full bg-slate-200">
+                    {product.imageUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={product.imageUrl}
+                        alt={product.name}
+                        className="object-cover w-full h-full"
+                      />
+                    ) : (
+                      <div className="flex items-center justify-center h-full text-slate-400">
+                        Image indisponible
+                      </div>
+                    )}
                   </div>
-                  <CardTitle className="text-xl">{product.name}</CardTitle>
-                  <CardDescription className="line-clamp-2 mt-2">
-                    {product.description}
-                  </CardDescription>
-                </CardHeader>
 
-                <CardFooter className="mt-auto">
-                  <AddToCartButton product={product} />
-                </CardFooter>
-              </Card>
+                  <CardHeader>
+                    <div className="flex justify-between items-start mb-2">
+                      <Badge variant="secondary" className="text-xs">
+                        {product.category.name}
+                      </Badge>
+                      <span className="text-lg font-bold text-amber-700">
+                        {product.price.toFixed(2)} €
+                      </span>
+                    </div>
+                    <CardTitle className="text-xl">{product.name}</CardTitle>
+                    <CardDescription className="line-clamp-2 mt-2">
+                      {product.description}
+                    </CardDescription>
+                  </CardHeader>
+
+                  <CardFooter className="mt-auto">
+                    <AddToCartButton product={product} />
+                  </CardFooter>
+                </Card>
+              </Link>
             ))}
           </div>
         )}
