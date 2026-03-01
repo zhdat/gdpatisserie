@@ -8,17 +8,9 @@ const nextConfig: NextConfig = {
         protocol: "http",
         hostname: "localhost",
       },
-      // {
-      //   protocol: "https",
-      //   hostname: "gdpatisserie.fr", // Pour la prod
-      // },
       {
         protocol: "https",
-        hostname: "unsplash.com", // Autoriser Unsplash (pour tes seeds)
-      },
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com", // Autoriser Unsplash (pour tes seeds)
+        hostname: "gdpatisserie.fr", // Pour la prod
       },
     ],
   },

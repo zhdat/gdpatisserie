@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    const uniqueFilename = `${Date.now()}-${file.name.replace(/\s+/g, "-")}`;
+    const uniqueFilename = `${Date.now()}-${file.name.replaceAll(/\s+/g, "-")}`;
     const bucketName = process.env.MINIO_BUCKET_NAME || "gdpatisserie";
 
     const command = new PutObjectCommand({

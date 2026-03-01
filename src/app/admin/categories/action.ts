@@ -53,6 +53,8 @@ export async function updateCategory(id: string, formData: FormData) {
       data: { name, slug },
     });
   } catch (error) {
+    console.error("Erreur Prisma lors de la création :", error);
+
     throw new Error("Cette catégorie existe peut-être déjà.");
   }
 
