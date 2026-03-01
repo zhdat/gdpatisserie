@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import AddToCartButton from "@/components/add-to-cart-button";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/db";
@@ -124,7 +123,9 @@ export default async function HomePage() {
                 </CardHeader>
 
                 <CardFooter className="mt-auto" hidden={product.isArchived}>
-                  <AddToCartButton product={product} />
+                  <Button className={`w-full transition-all cursor-pointer`}>
+                    Voir le produit
+                  </Button>
                 </CardFooter>
               </Card>
             </Link>

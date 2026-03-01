@@ -112,7 +112,7 @@ export async function submitOrder(
     // B. Email ADMIN
     await resend.emails.send({
       from: "GD Pâtisserie <onboarding@resend.dev>",
-      to: "admin@gdpatisserie.com", // Mets ton email ici pour tester
+      to: "admin@gdpatisserie.com",
       subject: "👨‍🍳 Nouvelle commande reçue !",
       react: <OrderEmail {...emailData} isForAdmin={true} />,
     });
