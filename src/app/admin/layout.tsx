@@ -1,7 +1,8 @@
 import { signOut } from "@/auth"; // Assure-toi que le chemin vers ton auth.ts est bon
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Cake, LayoutDashboard, LogOut, ShoppingBag } from "lucide-react";
+import { Cake, LayoutDashboard, LogOut, ShoppingBag, Tags } from "lucide-react";
+import React from "react";
 
 export default function AdminLayout({
   children,
@@ -49,6 +50,15 @@ export default function AdminLayout({
               >
                 <Cake className="h-4 w-4" />
                 Produits
+              </Button>
+            </Link>
+            <Link href="/admin/categories">
+              <Button
+                variant="ghost"
+                className="text-slate-600 gap-2 cursor-pointer"
+              >
+                <Tags className="h-4 w-4" />
+                Catégories
               </Button>
             </Link>
           </div>

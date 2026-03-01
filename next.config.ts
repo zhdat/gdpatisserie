@@ -5,9 +5,13 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "res.cloudinary.com", // Autoriser Cloudinary
+        protocol: "http",
+        hostname: "localhost",
       },
+      // {
+      //   protocol: "https",
+      //   hostname: "gdpatisserie.fr", // Pour la prod
+      // },
       {
         protocol: "https",
         hostname: "unsplash.com", // Autoriser Unsplash (pour tes seeds)

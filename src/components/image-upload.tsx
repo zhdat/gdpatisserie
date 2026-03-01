@@ -1,15 +1,15 @@
 "use client";
 
-import { CldUploadWidget } from "next-cloudinary";
 import { Button } from "@/components/ui/button";
-import { ImagePlus, Trash } from "lucide-react";
+import { ImagePlus, Loader2, Trash } from "lucide-react";
 import Image from "next/image";
+import React, { useRef, useState } from "react";
 
 interface ImageUploadProps {
   disabled?: boolean;
   onChange: (value: string) => void;
   onRemove: (value: string) => void;
-  value: string[]; // On gère un tableau, même si on n'a qu'une image pour l'instant
+  value: string[];
 }
 
 export default function ImageUpload({
@@ -18,10 +18,35 @@ export default function ImageUpload({
   onRemove,
   value,
 }: Readonly<ImageUploadProps>) {
-  // Fonction appelée quand l'upload est fini
-  const onUpload = (result: any) => {
-    // result.info.secure_url contient le lien HTTPS de l'image
-    onChange(result.info.secure_url);
+  const [isUploading, setIsUploading] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+
+    const file = e.target.files[0];
+    setIsUploading(true);
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) throw new Error("Upload failed");
+
+      const data = await response.json();
+      onChange(data.url);
+    } catch (error) {
+      console.error("Erreur d'upload:", error);
+      alert("Erreur lors de l'envoi de l'image");
+    } finally {
+      setIsUploading(false);
+      if (inputRef.current) inputRef.current.value = "";
+    }
   };
 
   return (
@@ -52,28 +77,28 @@ export default function ImageUpload({
         ))}
       </div>
 
-      <CldUploadWidget
-        onSuccess={onUpload} // Utilise onSuccess au lieu de onUpload (changement récent v5/v6)
-        uploadPreset="gdpatisserie_preset" // ⚠️ Mets bien le nom de ton preset ici
-      >
-        {({ open }) => {
-          const onClick = () => {
-            open();
-          };
+      <input
+        type="file"
+        accept="image/*"
+        className="hidden"
+        ref={inputRef}
+        onChange={handleFileChange}
+        disabled={disabled || isUploading}
+      />
 
-          return (
-            <Button
-              type="button"
-              disabled={disabled}
-              variant="secondary"
-              onClick={onClick}
-            >
-              <ImagePlus className="h-4 w-4 mr-2" />
-              Ajouter une image
-            </Button>
-          );
-        }}
-      </CldUploadWidget>
+      <Button
+        type="button"
+        disabled={disabled || isUploading}
+        variant="secondary"
+        onClick={() => inputRef.current?.click()}
+      >
+        {isUploading ? (
+          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+        ) : (
+          <ImagePlus className="h-4 w-4 mr-2" />
+        )}
+        Ajouter une image
+      </Button>
     </div>
   );
 }
