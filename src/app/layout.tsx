@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import Script from "next/dist/client/script";
 
 export const metadata: Metadata = {
   title: {
@@ -54,6 +55,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          src="https://stats-visites.calliste.ovh/script.js"
+          data-website-id="6a3f2736-695a-4074-9325-60835c3aaca9"
+          strategy="afterInteractive"
+        />
+      </head>
       <body
         className={
           `${geistSans.variable} ${geistMono.variable} antialiased` +
