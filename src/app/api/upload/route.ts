@@ -1,19 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-
-const s3Client = new S3Client({
-  region: "us-east-1",
-  endpoint: `http://${process.env.MINIO_ENDPOINT || "localhost"}:${process.env.MINIO_PORT || 9000}`,
-  forcePathStyle: true,
-  credentials: {
-    accessKeyId:
-      process.env.MINIO_ACCESS_KEY || process.env.MINIO_ROOT_USER || "admin",
-    secretAccessKey:
-      process.env.MINIO_SECRET_KEY ||
-      process.env.MINIO_ROOT_PASSWORD ||
-      "SuperSecretPassword123!",
-  },
-});
+import { mkdir, writeFile } from "node:fs/promises";
+import path from "node:path";
 
 export async function POST(req: NextRequest) {
   try {
@@ -26,19 +13,20 @@ export async function POST(req: NextRequest) {
 
     const buffer = Buffer.from(await file.arrayBuffer());
     const uniqueFilename = `${Date.now()}-${file.name.replaceAll(/\s+/g, "-")}`;
-    const bucketName = process.env.MINIO_BUCKET_NAME || "gdpatisserie";
 
-    const command = new PutObjectCommand({
-      Bucket: bucketName,
-      Key: uniqueFilename,
-      Body: buffer,
-      ContentType: file.type,
-    });
+    const uploadDir = path.join(process.cwd(), "public", "uploads");
 
-    await s3Client.send(command);
+    try {
+      await mkdir(uploadDir, { recursive: true });
+    } catch (err) {
+      // Le dossier existe déjà, on ignore l'erreur
+    }
 
-    // Attention : en production, il faudra utiliser votre vrai nom de domaine
-    const publicUrl = `https://www.gdpatisserie.fr/storage/${bucketName}/${uniqueFilename}`;
+    const filePath = path.join(uploadDir, uniqueFilename);
+
+    await writeFile(filePath, buffer);
+
+    const publicUrl = `/uploads/${uniqueFilename}`;
 
     return NextResponse.json({ url: publicUrl });
   } catch (error) {

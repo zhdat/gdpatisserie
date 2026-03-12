@@ -6,3 +6,6 @@ README.md
 .next
 .git
 .env
+# Uploads locaux
+public/uploads/*
+!public/uploads/.gitkeep
