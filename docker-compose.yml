@@ -1,50 +1,46 @@
 services:
-#  app:
-#    image: calliste/gdpatisserie:latest
-#    container_name: gd-app-test
-#    ports:
-#      - "3000:3000"
-#    environment:
-#      - DATABASE_URL=postgresql://gilles:3c8S2C5HhsN@db:5432/gdpatisserie_db
-#      - AUTH_URL=http://localhost:3000
-#      - AUTH_TRUST_HOST=true
-#      - AUTH_SECRET=${AUTH_SECRET}
-#      - RESEND_API_KEY=${RESEND_API_KEY}
-#      # Variables pour MinIO :
-#      - MINIO_ENDPOINT=minio
-#      - MINIO_PORT=9000
-#      - MINIO_USE_SSL=false
-#      - MINIO_ACCESS_KEY=${MINIO_ROOT_USER}
-#      - MINIO_SECRET_KEY=${MINIO_ROOT_PASSWORD}
-#      - MINIO_BUCKET_NAME=gdpatisserie
-#    depends_on:
-#      - db
-#      - minio
+  app:
+    build: .
+    container_name: gd-app-prod
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - AUTH_URL=${AUTH_URL}
+      - AUTH_TRUST_HOST=true
+      - AUTH_SECRET=${AUTH_SECRET}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - RESEND_API_KEY=${RESEND_API_KEY}
+    depends_on:
+      - db
+      - minio
 
   db:
     image: postgres:15-alpine
     container_name: gdpatisserie-db
     environment:
-      POSTGRES_USER: gilles
-      POSTGRES_PASSWORD: 3c8S2C5HhsN
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: gdpatisserie_db
-    ports:
-      - "5432:5432"
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
 
-  minio:
-    image: minio/minio
-    container_name: gdpatisserie-storage
-    environment:
-      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
-      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+  # --- LE NOUVEAU SERVICE CADDY ---
+  caddy:
+    image: caddy:2
+    container_name: gdpatisserie-caddy
+    restart: unless-stopped
     ports:
-      - "9000:9000" # Port de l'API S3
-      - "9001:9001" # Port de la console Web
+      - "80:80"
+      - "443:443"
     volumes:
-      - ./minio-data:/data
-    command: server /data --console-address ":9001"
+      - ~/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
 
 volumes:
   postgres-data:
+  minio-data:
+  caddy_data:
+  caddy_config:
